@@ -351,3 +351,33 @@ test("неизвестный маршрут предлагает перейти 
   await page.getByRole("link", { name: "Открыть каталог", exact: true }).click();
   await expect(page.locator(".product-card")).toHaveCount(8);
 });
+
+test("главная для нового покупателя и сохранение набора из корзины", async ({ page }) => {
+  await page.goto("/");
+  await expect(page.getByRole("region", { name: "Выбор воды" })).toHaveAttribute(
+    "aria-busy",
+    "false",
+  );
+  await expect(page.getByRole("heading", { name: "Ваш сохранённый набор" })).toHaveCount(0);
+  await expect(page.getByRole("link", { name: "Личный кабинет", exact: true })).toHaveCount(0);
+  await expect(page.locator("#popular")).toContainText("600");
+  await page.getByRole("button", { name: "В корзину: Акватель", exact: true }).click();
+  await page.getByRole("button", { name: "В корзину: Бутылка 19 литров", exact: true }).click();
+  await page.goto("/cart");
+  await page.getByRole("button", { name: "Сохранить набор из корзины", exact: true }).click();
+  await page.goto("/");
+  await expect(page.getByRole("heading", { name: "Ваш сохранённый набор" })).toBeVisible();
+  await page.getByRole("button", { name: "Повторить набор", exact: true }).click();
+  await page.getByRole("button", { name: "Повторить набор", exact: true }).click();
+  expect((await stored(page, cartKey)).items).toEqual([
+    { productId: "water-akvatel-19", quantity: 1 },
+    { productId: "bottle-19", quantity: 1 },
+  ]);
+  await page.reload();
+  await expect(page.getByRole("heading", { name: "Ваш сохранённый набор" })).toBeVisible();
+  await page.goto(`/catalog/${product.slug}`);
+  await expect(page.getByRole("heading", { name: "Документы", exact: true })).toBeVisible();
+  await expect(
+    page.getByRole("link", { name: "Декларация соответствия · Акватель", exact: true }),
+  ).toHaveAttribute("href", "https://pub.fsa.gov.ru/rds/declaration/view/21592502/common");
+});

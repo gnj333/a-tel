@@ -49,7 +49,7 @@ test("stage 3 data gains catalog products without overwriting saved edits or ord
   assert.equal(state.orders.length, 49);
   await useMockStore.persist.rehydrate();
   assert.equal(useMockStore.getState().orders.length, 49);
-  assert.equal(JSON.parse(values.get("akvatel-demo-data-v1")!).version, 5);
+  assert.equal(JSON.parse(values.get("akvatel-demo-data-v1")!).version, 6);
 });
 
 test("version 4 orders lose old presentation labels without losing prices, statuses or edits", async () => {

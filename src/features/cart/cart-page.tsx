@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowLeft, ArrowRight, Package, Trash2 } from "lucide-react";
+import { ArrowLeft, ArrowRight, Bookmark, Package, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 import { Container } from "@/components/shared/container";
 import { Breadcrumbs } from "@/components/shared/breadcrumbs";
@@ -178,6 +178,27 @@ export function CartPage() {
               <p className="mt-5 text-xs text-muted-foreground">
                 Проверьте состав и количество товаров перед оформлением заказа.
               </p>
+              {cart.canCheckout && (
+                <div className="mt-5 flex flex-wrap items-center justify-between gap-3 rounded-2xl bg-surface p-5">
+                  <div>
+                    <h2 className="font-semibold">Заказываете то же самое?</h2>
+                    <p className="mt-1 text-sm text-muted-foreground">
+                      Сохраните состав — в следующий раз он будет на главной.
+                    </p>
+                  </div>
+                  <Button
+                    variant="secondary"
+                    className="h-auto min-h-12 whitespace-normal"
+                    onClick={() => {
+                      useCartStore.getState().saveForRepeat();
+                      toast.success("Текущая корзина сохранена для повторения");
+                    }}
+                  >
+                    <Bookmark size={17} className="shrink-0" />
+                    Сохранить набор из корзины
+                  </Button>
+                </div>
+              )}
             </section>
             <OrderSummary cart={cart}>
               {cart.canCheckout ? (

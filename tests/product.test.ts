@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import type { Product } from "@/domain/models";
 import { products } from "@/data/mock/seed";
+import { refreshWaterDetails } from "@/data/mock/water-details";
 import {
   findPublishedProduct,
   needsBottleExchange,
@@ -58,4 +59,38 @@ test("exchange applies to 19 litre water, not empty bottles or small packs", () 
   assert.equal(needsBottleExchange(pack), false);
   assert.equal(productTotal(pack, 3), 1440);
   assert.equal(productTotal({ ...pack, price: 12.34 }, 3), 37.02);
+});
+
+test("water content refresh fills original product details while preserving manager edits", () => {
+  const original: Product = {
+    ...products[0],
+    price: 515,
+    status: "archived",
+    description: "Природная вода, 19 л. Обменная тара учитывается отдельно.",
+    image: "/images/akvatel-19.jpg",
+    attributes: { Объём: "19 л", Тара: "Обменная" },
+    documents: undefined,
+  };
+  const refreshed = refreshWaterDetails(original);
+  assert.equal(refreshed.price, 515);
+  assert.equal(refreshed.status, "archived");
+  assert.equal(refreshed.image, "/images/akvatel-19-clean.webp");
+  assert.equal(refreshed.attributes["Срок годности"], "6 месяцев");
+  assert.ok(refreshed.documents?.length);
+  assert.notEqual(refreshed.description, original.description);
+  assert.equal(original.image, "/images/akvatel-19.jpg");
+
+  const edited = {
+    ...original,
+    description: "Описание менеджера",
+    image: "/images/custom.jpg",
+    documents: [],
+    attributes: { Тара: "Уточняется" },
+  };
+  const preserved = refreshWaterDetails(edited);
+  assert.equal(preserved.description, edited.description);
+  assert.equal(preserved.image, edited.image);
+  assert.deepEqual(preserved.documents, []);
+  assert.equal(preserved.attributes.Тара, "Уточняется");
+  assert.deepEqual(refreshWaterDetails(refreshed), refreshed);
 });

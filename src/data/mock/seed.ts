@@ -1,4 +1,5 @@
 import type { Category, Product } from "@/domain/models";
+import { waterDetails } from "./water-details";
 const checkedAt = "2026-10-26";
 export const categories: Category[] = [
   ["water", "voda", "Вода"],
@@ -18,19 +19,17 @@ export const products: Product[] = [
     slug: "akvatel-19",
     name: "Акватель",
     categoryId: "water",
-    description: "Природная вода, 19 л. Обменная тара учитывается отдельно.",
+    ...waterDetails["water-akvatel-19"],
     price: 480,
     currency: "RUB",
     volumeLiters: 19,
-    image: "/images/akvatel-19.jpg",
     imageAlt: "Бутыль природной воды «Акватель», 19 литров",
     status: "published",
     isDemo: false,
-    attributes: { Объём: "19 л", Тара: "Обменная" },
     source: {
-      url: "https://a-tel.ru/category/voda/",
-      checkedAt,
-      note: "Снимок цены из каталога; карточка в веб-индексе показывает 460 ₽. Перед публикацией перепроверить. Не оферта.",
+      url: "https://a-tel.ru/voda-akvatyel-19lit/",
+      checkedAt: "2026-11-03",
+      note: "Описание и ссылка на декларацию со страницы товара. Цена из каталога. Не оферта.",
     },
   },
   {
@@ -38,19 +37,17 @@ export const products: Product[] = [
     slug: "akvatel-light-19",
     name: "Акватель Лайт",
     categoryId: "water",
-    description: "Менделеевская природная вода, 19 л. Обменная тара учитывается отдельно.",
+    ...waterDetails["water-akvatel-light-19"],
     price: 420,
     currency: "RUB",
     volumeLiters: 19,
-    image: "/images/akvatel-light-19.jpeg",
     imageAlt: "Бутыль природной воды «Акватель Лайт», 19 литров",
     status: "published",
     isDemo: false,
-    attributes: { Объём: "19 л", Тара: "Обменная" },
     source: {
-      url: "https://a-tel.ru/category/voda/",
-      checkedAt,
-      note: "Цена за одну бутыль из каталога. Снимок для прототипа, не оферта.",
+      url: "https://a-tel.ru/akvatel-layt-mendeleevskaya-19-l-prirodnaya-voda/",
+      checkedAt: "2026-11-03",
+      note: "Описание и декларация со страницы товара. В каталоге 420 ₽, в карточке 400 ₽; сохранена цена каталога. Не оферта.",
     },
   },
   {

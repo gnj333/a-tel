@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ArrowRight, Grid2X2, MapPin, Menu, Phone, ShoppingBag, UserRound } from "lucide-react";
+import { ArrowRight, Grid2X2, MapPin, Menu, Phone, ShoppingBag } from "lucide-react";
 import { Container } from "@/components/shared/container";
 import { Button } from "@/components/ui/button";
 import {
@@ -81,13 +81,6 @@ export function StoreHeader() {
             <Phone size={21} />
           </a>
           <Link
-            href="/account"
-            aria-label="Личный кабинет"
-            className={`${iconButton} hidden lg:flex`}
-          >
-            <UserRound size={21} />
-          </Link>
-          <Link
             href="/cart"
             className="flex size-11 shrink-0 items-center justify-center gap-2 rounded-xl hover:bg-surface 2xl:w-auto 2xl:px-2"
             aria-label={`Корзина: ${count} шт.`}
@@ -137,7 +130,6 @@ export function StoreHeader() {
           {[
             { href: "/", label: "Главная" },
             ...links,
-            { href: "/account", label: "Личный кабинет" },
             { href: "/cart", label: `Корзина · ${count}` },
           ].map((link) => (
             <DialogClose asChild key={link.href}>

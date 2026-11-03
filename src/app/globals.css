@@ -95,7 +95,7 @@ button:not(:disabled) {
   outline-offset: 3px;
 }
 html {
-  scroll-padding-top: 9rem;
+  scroll-padding-top: 6rem;
 }
 main {
   scroll-margin-top: 9rem;

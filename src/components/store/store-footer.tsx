@@ -38,7 +38,6 @@ export function StoreFooter() {
               {[
                 ["/delivery", "Доставка и оплата"],
                 ["/about", "О компании"],
-                ["/account", "Личный кабинет"],
                 ["/cart", "Корзина"],
               ].map(([href, label]) => (
                 <li key={href}>

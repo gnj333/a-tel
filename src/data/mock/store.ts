@@ -4,6 +4,7 @@ import { createJSONStorage, persist } from "zustand/middleware";
 import type { Category, Order, Product } from "@/domain/models";
 import { categories, products } from "./seed";
 import { createDemoOrders } from "./demo-orders";
+import { refreshWaterDetails } from "./water-details";
 export interface MockState {
   products: Product[];
   categories: Category[];
@@ -31,7 +32,7 @@ export const useMockStore = create<MockStore>()(
     }),
     {
       name: "akvatel-demo-data-v1",
-      version: 5,
+      version: 6,
       skipHydration: true,
       storage: createJSONStorage(() => localStorage),
       migrate: (persisted) => {
@@ -71,7 +72,7 @@ export const useMockStore = create<MockStore>()(
             ),
           ],
           products: [
-            ...state.products,
+            ...state.products.map(refreshWaterDetails),
             ...products.filter(
               (product) => !state.products.some((saved) => saved.id === product.id),
             ),
