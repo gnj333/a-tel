@@ -1,7 +1,8 @@
 "use client";
+import { adminProductHref } from "@/lib/paths";
 
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/components/shared/image";
 import { useRef, useState } from "react";
 import { Archive, Pencil, Plus, Package } from "lucide-react";
 import { toast } from "sonner";
@@ -51,7 +52,7 @@ function ProductActions({
   return (
     <div className="flex items-center gap-1">
       <Button variant="ghost" asChild className="size-11 min-h-11 px-0">
-        <Link href={`/admin/products/${product.id}`} aria-label={`Редактировать ${product.name}`}>
+        <Link href={adminProductHref(product.id)} aria-label={`Редактировать ${product.name}`}>
           <Pencil size={17} />
         </Link>
       </Button>
@@ -195,7 +196,7 @@ export function ProductsPage() {
                           <div>
                             <Link
                               className="font-medium hover:text-primary"
-                              href={`/admin/products/${product.id}`}
+                              href={adminProductHref(product.id)}
                             >
                               {product.name}
                             </Link>
@@ -226,7 +227,7 @@ export function ProductsPage() {
                     <div className="min-w-0 flex-1">
                       <Link
                         className="break-words text-sm font-medium text-primary"
-                        href={`/admin/products/${product.id}`}
+                        href={adminProductHref(product.id)}
                       >
                         {product.name}
                       </Link>

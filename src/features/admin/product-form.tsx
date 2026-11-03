@@ -1,7 +1,8 @@
 "use client";
+import { productHref } from "@/lib/paths";
 
 import Link from "next/link";
-import Image from "next/image";
+import Image from "@/components/shared/image";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
@@ -111,7 +112,7 @@ function ProductForm({ product }: { product?: Product }) {
         action={
           product?.status === "published" ? (
             <Button variant="secondary" asChild>
-              <Link href={`/catalog/${product.slug}`}>Открыть в магазине</Link>
+              <Link href={productHref(product.slug)}>Открыть в магазине</Link>
             </Button>
           ) : undefined
         }

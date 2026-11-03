@@ -1,7 +1,8 @@
 "use client";
+import { productHref } from "@/lib/paths";
 
 import { useEffect, useRef, useState } from "react";
-import Image from "next/image";
+import Image from "@/components/shared/image";
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, Bookmark, Package, Trash2 } from "lucide-react";
 import { toast } from "sonner";
@@ -115,7 +116,7 @@ export function CartPage() {
                         if (node) productLinks.current.set(product.id, node);
                         else productLinks.current.delete(product.id);
                       }}
-                      href={`/catalog/${product.slug}`}
+                      href={productHref(product.slug)}
                       aria-label={`Открыть товар: ${product.name}`}
                       className="relative flex aspect-square items-center justify-center self-start rounded-xl bg-surface"
                     >
@@ -138,7 +139,7 @@ export function CartPage() {
                       <div className="flex items-start justify-between gap-2">
                         <div className="min-w-0">
                           <Link
-                            href={`/catalog/${product.slug}`}
+                            href={productHref(product.slug)}
                             className="break-words text-base font-semibold hover:text-primary sm:text-lg"
                           >
                             {product.name}

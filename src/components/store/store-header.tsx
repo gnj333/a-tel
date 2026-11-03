@@ -27,7 +27,7 @@ const iconButton =
   "flex size-11 shrink-0 items-center justify-center rounded-xl transition-colors hover:bg-surface";
 
 export function StoreHeader() {
-  const pathname = usePathname();
+  const pathname = usePathname().replace(/\/$/, "") || "/";
   const triggerRef = useRef<HTMLButtonElement | null>(null);
   const [open, setOpen] = useState(false);
   const categories = useMockStore((state) => state.categories);

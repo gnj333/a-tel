@@ -5,6 +5,10 @@ import { ProductPage as ProductDetails } from "@/features/product/product-page";
 
 type ProductRouteProps = { params: Promise<{ slug: string }> };
 
+export function generateStaticParams() {
+  return products.map(({ slug }) => ({ slug }));
+}
+
 // Browser-only edits are rendered by ProductDetails; metadata uses the server seed.
 export async function generateMetadata({ params }: ProductRouteProps): Promise<Metadata> {
   const { slug } = await params;

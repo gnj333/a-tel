@@ -1,4 +1,5 @@
 "use client";
+import { productHref } from "@/lib/paths";
 
 import Link from "next/link";
 import { ArrowLeft, ArrowRight, CreditCard, FileText, Recycle, Truck } from "lucide-react";
@@ -286,7 +287,7 @@ export function ProductPage({ slug }: { slug: string }) {
                     <ProductCard
                       key={item.id}
                       product={item}
-                      detailHref={`/catalog/${item.slug}`}
+                      detailHref={productHref(item.slug)}
                       showQuantity
                       onAdd={addProduct}
                       inCartQuantity={

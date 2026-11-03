@@ -1,3 +1,4 @@
+import { adminOrderHref } from "@/lib/paths";
 import Link from "next/link";
 import type { Order } from "@/domain/models";
 import { formatPrice } from "@/lib/commerce";
@@ -40,7 +41,7 @@ export function OrdersTable({ orders, compact = false }: { orders: Order[]; comp
               <tr key={order.id}>
                 <td>
                   <Link
-                    href={`/admin/orders/${order.id}`}
+                    href={adminOrderHref(order.id)}
                     className="font-medium text-primary hover:underline"
                   >
                     {order.number}
@@ -73,10 +74,7 @@ export function OrdersTable({ orders, compact = false }: { orders: Order[]; comp
         {orders.map((order) => (
           <article key={order.id} className="space-y-3 p-4">
             <div className="flex flex-wrap items-center justify-between gap-2">
-              <Link
-                href={`/admin/orders/${order.id}`}
-                className="text-sm font-semibold text-primary"
-              >
+              <Link href={adminOrderHref(order.id)} className="text-sm font-semibold text-primary">
                 {order.number}
               </Link>
               <StatusBadge status={order.status} />

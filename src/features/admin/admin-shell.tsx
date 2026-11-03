@@ -31,7 +31,7 @@ const links = [
   { href: "/admin/products", label: "Товары", icon: Package },
 ];
 function Navigation({ close }: { close?: () => void }) {
-  const pathname = usePathname();
+  const pathname = usePathname().replace(/\/$/, "") || "/";
   return (
     <nav aria-label="Административная панель" className="space-y-1">
       {links.map(({ href, label, icon: Icon }) => {
@@ -73,7 +73,7 @@ function Identity() {
   );
 }
 export function AdminShell({ children }: { children: ReactNode }) {
-  const pathname = usePathname();
+  const pathname = usePathname().replace(/\/$/, "") || "/";
   const [open, setOpen] = useState(false);
   const [ready, setReady] = useState(false);
   const [error, setError] = useState(false);

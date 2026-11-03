@@ -1,6 +1,7 @@
 "use client";
+import { productHref } from "@/lib/paths";
 
-import Image from "next/image";
+import Image from "@/components/shared/image";
 import Link from "next/link";
 import { ArrowRight, Check, Recycle, Truck } from "lucide-react";
 import { Container } from "@/components/shared/container";
@@ -130,7 +131,7 @@ export function HomeShopping() {
                 <ProductCard
                   key={product.id}
                   product={product}
-                  detailHref={`/catalog/${product.slug}`}
+                  detailHref={productHref(product.slug)}
                   compact
                   showQuantity
                   inCartQuantity={
@@ -228,7 +229,7 @@ export function HomeShopping() {
                     <ProductCard
                       key={product.id}
                       product={product}
-                      detailHref={`/catalog/${product.slug}`}
+                      detailHref={productHref(product.slug)}
                       compact
                       accessory
                       onAdd={addProduct}

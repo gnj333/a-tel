@@ -20,6 +20,22 @@ npm start
 
 Первая сборка загружает Inter через `next/font/google` и требует доступ к Google Fonts. Изображения товаров находятся в `public/images/` и обслуживаются локально.
 
+## Публикация на GitHub Pages
+
+В репозитории откройте **Settings → Pages → Build and deployment → Source** и выберите **GitHub Actions**. Режим `Deploy from a branch → main → / (root)` публикует исходники и показывает README вместо Next.js-приложения.
+
+После отправки изменений в `main` workflow `.github/workflows/pages.yml` установит зависимости, соберёт статическую версию в `out/` и опубликует её. Состояние доступно во вкладке **Actions → Deploy to GitHub Pages**; workflow можно запустить вручную через **Run workflow**. Адрес: https://gnj333.github.io/a-tel/.
+
+Проверить такую сборку локально:
+
+```sh
+GITHUB_PAGES=true npm run build
+```
+
+По умолчанию используется префикс `/a-tel`; workflow получает актуальный путь из настроек Pages через `PAGES_BASE_PATH`. Для собственного домена без префикса задайте `PAGES_BASE_PATH=""`. Папка `out/` содержит готовый сайт и не коммитится. Обычные `npm run dev` и `npm run build && npm start` продолжают работать без префикса.
+
+На Pages карточки открываются через `/catalog/view/?slug=…`, `/admin/products/view/?id=…` и `/admin/orders/view/?id=…`. Это позволяет открывать и перезагружать карточки новых товаров и заказов из localStorage без сервера и повторного деплоя. Страницы исходных товаров и заказов по прежним адресам также включены в сборку.
+
 ## Маршруты
 
 | Адрес                  | Возможности                                                                 |

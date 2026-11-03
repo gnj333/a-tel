@@ -1,4 +1,5 @@
 "use client";
+import { productHref } from "@/lib/paths";
 
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
@@ -43,7 +44,11 @@ export function Catalog() {
       if (value === undefined || value === "") params.delete(key);
       else params.set(key, value);
     }
-    window.history.pushState(null, "", `/catalog${params.size ? `?${params}` : ""}`);
+    window.history.pushState(
+      null,
+      "",
+      `${window.location.pathname}${params.size ? `?${params}` : ""}`,
+    );
   };
   const reset = () =>
     update({
@@ -218,7 +223,7 @@ export function Catalog() {
                   imageLoading={index < 3 ? "eager" : "lazy"}
                   key={product.id}
                   product={product}
-                  detailHref={`/catalog/${product.slug}`}
+                  detailHref={productHref(product.slug)}
                   showQuantity
                   inCartQuantity={
                     items.find((item) => item.productId === product.id)?.quantity ?? 0

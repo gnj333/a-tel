@@ -1,4 +1,5 @@
 "use client";
+import { adminProductHref } from "@/lib/paths";
 
 import Link from "next/link";
 import { useState } from "react";
@@ -238,7 +239,7 @@ export function Dashboard() {
                   <div className="min-w-0 flex-1">
                     <Link
                       className="text-sm font-medium hover:text-primary"
-                      href={`/admin/products/${product.id}`}
+                      href={adminProductHref(product.id)}
                     >
                       {product.name}
                     </Link>
