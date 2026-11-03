@@ -1,9 +1,15 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { itemsSubtotal } from "../src/lib/commerce";
-import { categories, products } from "../src/data/mock/seed";
+import { itemsSubtotal } from "@/lib/commerce";
+import { categories, products } from "@/data/mock/seed";
 test("order snapshot total uses integer kopecks", () => {
-  assert.equal(itemsSubtotal([{ productId: "a", name: "A", unitPrice: 0.1, quantity: 3 }, { productId: "b", name: "B", unitPrice: 0.2, quantity: 1 }]), 0.5);
+  assert.equal(
+    itemsSubtotal([
+      { productId: "a", name: "A", unitPrice: 0.1, quantity: 3 },
+      { productId: "b", name: "B", unitPrice: 0.2, quantity: 1 },
+    ]),
+    0.5,
+  );
   assert.equal(itemsSubtotal([]), 0);
 });
 test("seed product references an existing category and has traceable data", () => {

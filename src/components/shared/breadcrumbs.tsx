@@ -1,3 +1,24 @@
 import Link from "next/link";
 import { ChevronRight } from "lucide-react";
-export function Breadcrumbs({ items }: { items: { label: string; href?: string }[] }) { return <nav aria-label="Хлебные крошки"><ol className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">{items.map((item, index) => <li className="flex items-center gap-2" key={`${index}-${item.label}`}>{index > 0 && <ChevronRight aria-hidden="true" size={14} />}{item.href && index < items.length - 1 ? <Link className="hover:text-primary" href={item.href}>{item.label}</Link> : <span aria-current={index === items.length - 1 ? "page" : undefined}>{item.label}</span>}</li>)}</ol></nav>; }
+export function Breadcrumbs({ items }: { items: { label: string; href?: string }[] }) {
+  return (
+    <nav aria-label="Хлебные крошки">
+      <ol className="flex flex-wrap items-center gap-2 text-sm text-muted-foreground">
+        {items.map((item, index) => (
+          <li className="flex items-center gap-2" key={`${index}-${item.label}`}>
+            {index > 0 && <ChevronRight aria-hidden="true" size={14} />}
+            {item.href && index < items.length - 1 ? (
+              <Link className="hover:text-primary" href={item.href}>
+                {item.label}
+              </Link>
+            ) : (
+              <span aria-current={index === items.length - 1 ? "page" : undefined}>
+                {item.label}
+              </span>
+            )}
+          </li>
+        ))}
+      </ol>
+    </nav>
+  );
+}
